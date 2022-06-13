@@ -59,7 +59,6 @@ app.get('/api/persons', (req, res) => {
   Person.find({}).then(persons => {
     res.json(persons)
   })
-  
 })
 
 app.get('/api/persons/:id', (req, res) => {
@@ -86,19 +85,20 @@ app.post('/api/persons', (req, res) => {
     return res.status(400).json({
       error: 'name or number can not be empty'
     })
-  } else if (persons.find(person => person.name === body.name)) {
-    return res.status(400).json({
-      error: 'name must be unique'
-    })
-  }
+  } 
+  // else if (persons.find(person => person.name === body.name)) {
+  //   return res.status(400).json({
+  //     error: 'name must be unique'
+  //   })
+  // }
   
-  const person = {
+  const person = new Person({
     name: body.name,
     number: body.number,
-    id: generateId()
-  }
+    // id: generateId()
+  })
   
-  persons = persons.concat(person)
+  // persons = persons.concat(person)
   
   res.json(person)
 })
