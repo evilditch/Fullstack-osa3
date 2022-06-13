@@ -51,8 +51,12 @@ const generateId = () => {
   return id
 }
 
-app.get('/info', (req, res) => {
-  res.send(`<p>Puhelinluettelossa on ${persons.length} henkilön tiedot</p><p>${new Date()}</p>`)
+app.get('/info', (req, res, next) => {
+  Person.find({})
+    .then(persons => {
+      res.send(`<p>Puhelinluettelossa on ${persons.length} henkilön tiedot</p><p>${new Date()}</p>`)
+    })
+    .catch(error => next(error))
 })
 
 app.get('/api/persons', (req, res, next) => {
